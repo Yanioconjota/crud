@@ -1,1 +1,56 @@
-<p>heroe works!</p>
+<h1>Héroe <small>Nombre del héroe</small></h1>
+<hr>
+<div class="row">
+  <div class="col text-right">
+    <button class="btn btn-danger" routerLink="/heroes">
+      <i class="fas fa-arrow-left"></i> Volver
+    </button>
+  </div>
+</div>
+
+<div class="row animate__animated animate__fadeIn">
+  <div class="col">
+    <form>
+      <div class="form-group">
+        <label for="firebaseId">Firebase ID</label>
+        <input type="text" class="form-control"
+               name="firebaseId"
+               placeholder="Firebase ID"
+               class="form-control"
+               disabled="disabled">
+        <small class="form-text text-muted">Este campo es autogenerado</small>
+      </div>
+
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" class="form-control"
+               name="nombre"
+               placeholder="Nombre del héroe"
+               class="form-control"
+               required>
+        <small class="form-text text-muted">Este campo es obligatorio</small>
+      </div>
+
+      <div class="form-group">
+        <label for="poder">Poder</label>
+        <input type="text" class="form-control"
+               name="poder"
+               placeholder="Poder del héroe"
+               class="form-control"
+               required>
+        <small class="form-text text-muted">Este campo es obligatorio</small>
+      </div>
+
+      <div class="form-group">
+        <label>Estado</label>
+        <br>
+        <button type="button" class="btn btn-outline-success w-50">
+          <i class="fas fa-smile-wink"></i> Vivo
+        </button>
+        <button type="button" class="btn btn-outline-danger w-50">
+          <i class="fas fa-dizzy"></i> Muerto
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
