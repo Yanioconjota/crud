@@ -1,1 +1,45 @@
-<p>heroes works!</p>
+<h1>Listado de héroes</h1>
+<hr>
+<div class="row">
+  <div class="col text-right">
+    <button class="btn btn-primary" routerLink="/heroe/nuevo">
+      Agregar <i class="fa fa-plus"></i>
+    </button>
+  </div>
+</div>
+
+<table class="table mt-3 animate__animated animate__fadeIn">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Poder</th>
+      <th scope="col">Vivo</th>
+      <th scope="col">Tools</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+      <td>@mdo</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="alert alert-warning text-center mt-3">
+  <h4 class="alert-heading">No hay registros</h4>
+  <p class="mb-0">
+    <i class="fa fa-exclamation-triangle fa-3x"></i>
+  </p>
+</div>
+
+<div class="alert alert-info text-center mt-3">
+  <h4 class="alert-heading">Cargando</h4>
+  <p class="mb-0">
+    <i class="fa fa-empire fa-spin fa-3x"></i>
+  </p>
+  <p class="mb-0">Espere por favor</p>
+</div>
