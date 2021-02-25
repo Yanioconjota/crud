@@ -36,6 +36,39 @@ export class HeroesService {
 
     //la URL debe terminar en .json para que pueda utilizar la REST API de firebase
     //no es obligatorio para usar en backend, es solo para firebase
-    return this.http.put(`${this.url}/heroes/${ heroe.id }.json`, heroeTemp)
+    return this.http.put(`${this.url}/heroes/${ heroe.id }.json`, heroeTemp);
+  }
+
+  getHeroe(id: string) {
+    return this.http.get(`${this.url}/heroes/${id}.json`);
+  }
+
+  getHeroes() {
+    return this.http.get(`${this.url}/heroes.json`)
+      .pipe(
+        map( (resp: any) => {
+          return this.crearArreglo(resp);
+        })
+      )
+  }
+
+  private crearArreglo( heroesObj: object){
+
+    const heroes:HeroeModel[] = [];
+
+    console.log(heroesObj);
+
+    //por si no hay nada en la base de datos
+    if ( heroesObj === null ) { return []; }
+
+    Object.keys( heroesObj ).forEach( key => {
+      const heroe: HeroeModel = heroesObj[key];
+      //key es el la propiedad que usamos en la base para guardar a cada heroe
+      heroe.id = key;
+
+      heroes.push(heroe);
+    })
+
+    return heroes;
   }
 }
