@@ -12,7 +12,9 @@ export class HeroesService {
   
   constructor(private http: HttpClient) { }
 
-  crearheroe( heroe: HeroeModel ){
+  crearHeroe( heroe: HeroeModel ){
+    //la URL debe terminar en .json para que pueda utilizar la REST API de firebase
+    //no es obligatorio para usar en backend, es solo para firebase
     return this.http.post(`${this.url}/heroes.json`, heroe)
       .pipe(
         map((resp: any) =>  {
@@ -22,5 +24,18 @@ export class HeroesService {
           return heroe;
         })
       );
+  }
+
+  actualizarHeroe( heroe: HeroeModel ){
+
+    const heroeTemp = {
+      ...heroe
+    };
+
+    delete heroeTemp.id;
+
+    //la URL debe terminar en .json para que pueda utilizar la REST API de firebase
+    //no es obligatorio para usar en backend, es solo para firebase
+    return this.http.put(`${this.url}/heroes/${ heroe.id }.json`, heroeTemp)
   }
 }
