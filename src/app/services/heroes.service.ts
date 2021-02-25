@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { delay, map } from "rxjs/operators";
 import { HeroeModel } from '../models/heroe.model';
-import { map } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +39,10 @@ export class HeroesService {
     return this.http.put(`${this.url}/heroes/${ heroe.id }.json`, heroeTemp);
   }
 
+  borrarHeroe(id: string) {
+    return this.http.delete(`${this.url}/heroes/${id}.json`);
+  }
+
   getHeroe(id: string) {
     return this.http.get(`${this.url}/heroes/${id}.json`);
   }
@@ -48,7 +52,8 @@ export class HeroesService {
       .pipe(
         map( (resp: any) => {
           return this.crearArreglo(resp);
-        })
+        }),
+        delay(0)
       )
   }
 
@@ -56,7 +61,7 @@ export class HeroesService {
 
     const heroes:HeroeModel[] = [];
 
-    console.log(heroesObj);
+    //console.log(heroesObj);
 
     //por si no hay nada en la base de datos
     if ( heroesObj === null ) { return []; }

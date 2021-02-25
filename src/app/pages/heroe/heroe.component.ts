@@ -15,16 +15,31 @@ import Swal from 'sweetalert2';
 export class HeroeComponent implements OnInit {
 
   heroe: HeroeModel = new HeroeModel();
+  heroes: HeroeModel[] = [];
+  mensaje: string;
 
   constructor(private heroesService: HeroesService,
               private route: ActivatedRoute,
               private router: Router) { }
 
   ngOnInit(): void {
+    this.getHeroe();
+    this.getHeroes();
+  }
+
+  getHeroes() {
+    this.heroesService.getHeroes()
+      .subscribe(resp => {
+        //console.log(resp);
+        this.heroes = resp;
+      });
+  }
+
+  getHeroe() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id !== 'nuevo') {
       this.heroesService.getHeroe(id)
-        .subscribe( (resp: HeroeModel) => {
+        .subscribe((resp: HeroeModel) => {
           if (resp === null) {
             Swal.fire({
               title: 'Espere',
@@ -41,7 +56,11 @@ export class HeroeComponent implements OnInit {
 
   guardar(form: NgForm){
     if (form.invalid) {
-      console.log('Formulario no válido');
+      Swal.fire({
+        title: 'Espere',
+        text: 'El formulario es inválido',
+        icon: 'info',
+      });
       return;
     }
     //En el ejemplo Swal.fire usan type en lugar de icon
@@ -53,19 +72,32 @@ export class HeroeComponent implements OnInit {
     });
 
     Swal.showLoading();
-
+    
     let peticion = new Observable<any>();
-
+    
     if ( this.heroe.id ) {
       peticion = this.heroesService.actualizarHeroe(this.heroe);
+      this.mensaje = 'El Héroe se actualizó correctamente';
     } else {
-      peticion = this.heroesService.crearHeroe(this.heroe);
+      let heroeDup = this.heroes.find(h => h.nombre === this.heroe.nombre);
+      if (heroeDup) {
+        Swal.fire({
+          title: 'Espere',
+          text: `${heroeDup.nombre} ya existe`,
+          icon: 'info',
+        });
+      } else {
+        peticion = this.heroesService.crearHeroe(this.heroe);
+        this.mensaje = 'El Héroe se creó correctamente';
+      }
+      console.log('Heroe dup: ', heroeDup);
+      
     }
 
     peticion.subscribe( resp => {
       Swal.fire({
         title: this.heroe.nombre,
-        text: 'Se actualizó correctamente',
+        text: this.mensaje,
         icon: 'success'
       });
     })

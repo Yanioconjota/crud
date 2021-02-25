@@ -8,7 +8,8 @@
   </div>
 </div>
 
-<table class="table mt-3 animate__animated animate__fadeIn">
+<table *ngIf="!cargando"
+        class="table mt-3 animate__animated animate__fadeIn">
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
@@ -36,7 +37,8 @@
                 [routerLink]="['/heroe', heroe.id]">
           <i class="fa fa-pen"></i>
         </button>
-        <button class="btn btn-danger">
+        <button class="btn btn-danger"
+                (click)="borrarHeroe(heroe, i)">
           <i class="fa fa-trash"></i>
         </button>
       </td>
@@ -44,14 +46,16 @@
   </tbody>
 </table>
 
-<div class="alert alert-warning text-center mt-3">
+<div *ngIf="!cargando && heroes.length <= 0"
+      class="alert alert-warning text-center mt-3 animate__animated animate__fadeIn">
   <h4 class="alert-heading">No hay registros</h4>
   <p class="mb-0">
     <i class="fa fa-exclamation-triangle fa-3x"></i>
   </p>
 </div>
 
-<div class="alert alert-info text-center mt-3">
+<div *ngIf="cargando"
+      class="alert alert-info text-center mt-3 animate__animated animate__fadeIn">
   <h4 class="alert-heading">Cargando</h4>
   <p class="mb-0">
     <i class="fa fa-empire fa-spin fa-3x"></i>
