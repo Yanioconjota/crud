@@ -90,7 +90,6 @@ export class HeroeComponent implements OnInit {
         peticion = this.heroesService.crearHeroe(this.heroe);
         this.mensaje = 'El Héroe se creó correctamente';
       }
-      console.log('Heroe dup: ', heroeDup);
       
     }
 
